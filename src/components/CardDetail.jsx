@@ -23,7 +23,7 @@ function CardDetail() {
       });
       //   setDataDetail(response.data);
     } catch (error) {
-      console.log("error > ", error);
+      console.log("error ", error);
     }
   };
 
