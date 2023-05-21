@@ -1,44 +1,121 @@
-.App {
-  text-align: center;
+:root {
+  --hero-bg: #f1f3ff;
+  --primary-dark-blue-04: #0d28a6;
+  --white: #fff;
 }
 
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#hero {
+  background-color: var(--hero-bg);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  --bs-bg-opacity: 0;
+}
+
+#cta .card {
+  color: #fff;
+  background-color: var(--primary-dark-blue-04);
+}
+
+.logo {
+  display: block;
+  background: var(--primary-dark-blue-04);
+  height: 2.5rem;
+  width: 7rem;
+}
+
+.icon {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  font-size: 10pt;
+  background-color: var(--primary-dark-blue-04);
+  width: 2rem;
+  height: 2rem;
+  color: var(--white);
+  border-radius: 99999px;
 }
 
-.App-link {
-  color: #61dafb;
+.icon-w {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10pt;
+  width: 2rem;
+  height: 2rem;
+  color: var(--white);
+  border-radius: 99999px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.blue {
+  background-color: var(--primary-dark-blue-04);
+}
 
-.modal-dialog {
-  overflow-y: auto;
-  max-width: 15000px;
-  background-color: brown;
+.yellow {
+  background-color: #F9CC00;
+}
+
+.red {
+  background-color: #FA2C5A;
+}
+
+.green {
+  background-color: #5CB85F;
+}
+
+.navbar-toggler {
+  border: 0;
+}
+
+.hero-content {
+  padding-top: 10rem;
+  padding-bottom: 6rem;
+}
+
+.hero-image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+}
+
+.search-form {
+  position: absolute;
+  margin: 0 auto;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 15;
+  margin-bottom: -7rem;
+}
+
+.footer {
+  padding-top: 5rem;
+}
+
+.cardCar {
+  margin-bottom: 100px;
+}
+
+.cardCarDetail {
+  margin-top: 100px;
+}
+
+@media (max-width: 575.98px) {
+  .hero-content {
+    padding-top: 1rem;
+    padding-bottom: 0;
+  }
+
+  .hero-image {
+    position: static;
+    bottom: 0;
+    right: 0;
+    width: auto;
+  }
 }
