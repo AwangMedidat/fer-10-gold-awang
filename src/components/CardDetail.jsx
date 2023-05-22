@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
+import userLogo from "../images/logo/users-logo.png";
 
 function CardDetail() {
   let { id } = useParams();
@@ -23,7 +24,7 @@ function CardDetail() {
       });
       //   setDataDetail(response.data);
     } catch (error) {
-      console.log("error ", error);
+      // console.log("error ", error);
     }
   };
 
@@ -44,7 +45,7 @@ function CardDetail() {
     <Container className="mb-3 cardCarDetail">
       <Row>
         <Col className="col-8">
-          <Card>
+          <Card className="border-1 rounded border border-success p-2 border-opacity-10">
             <Card.Body>
               <Card.Title>Tentang Paket</Card.Title>
               <Card.Title>Include</Card.Title>
@@ -97,7 +98,7 @@ function CardDetail() {
           </Card>
         </Col>
         <Col className="col-4">
-          <Card>
+          <Card className="border-1 rounded border border-success p-2 border-opacity-10">
             {dataDetail && dataDetail.image ? (
               <Card.Img className="p-3" src={dataDetail.image}></Card.Img>
             ) : (
@@ -111,10 +112,23 @@ function CardDetail() {
               <Card.Title>
                 {dataDetail && dataDetail.name ? dataDetail.name : ""}
               </Card.Title>
-              <Card.Title>
-                {dataDetail && dataDetail.category ? dataDetail.category : ""}
-              </Card.Title>
-              <div className="d-flex justify-content-between align-items-center">
+              <div className="d-flex flex">
+                <div>
+                  <img
+                    src={userLogo}
+                    alt=""
+                    style={{ width: "15px", marginRight: "5px" }}
+                  />{" "}
+                </div>
+                <Card.Title className="mt-1 fs-6 fw-semibold">
+                  <p className="text-secondary">
+                    {dataDetail && dataDetail.category
+                      ? dataDetail.category
+                      : ""}
+                  </p>
+                </Card.Title>
+              </div>
+              <div className="d-flex justify-content-between align-items-center mt-5">
                 <Card.Title className="">Total</Card.Title>
                 <Card.Title className="">
                   {numberBeRp.format(

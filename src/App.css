@@ -22,6 +22,10 @@ body {
   background-color: var(--primary-dark-blue-04);
 }
 
+#testimonial .card {
+  background-color: #F1F3FF;
+}
+
 .logo {
   display: block;
   background: var(--primary-dark-blue-04);
@@ -105,6 +109,7 @@ body {
 .cardCarDetail {
   margin-top: 100px;
 }
+
 
 @media (max-width: 575.98px) {
   .hero-content {

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Card, Container, Form, Row, Col } from "react-bootstrap";
-import ReactSelect from "react-select";
+import { useEffect } from "react";
 
 function Searchform(props) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
   const {
     withButtonSearchCar = false,
@@ -15,6 +17,10 @@ function Searchform(props) {
   const [kategori, setKategori] = useState();
   const [harga, setHarga] = useState();
   const [status, setStatus] = useState();
+  const [nameUrl, setNameUrl] = useState();
+  const [kategoriUrl, setKategoriUrl] = useState();
+  const [statusUrl, setStatusUrl] = useState();
+  const [hargaUrl, setHargaUrl] = useState();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -24,6 +30,17 @@ function Searchform(props) {
     );
     window.location.reload();
   };
+
+  useEffect(() => {
+    setNameUrl(queryParams.get("name"));
+    setKategoriUrl(queryParams.get("kategori"));
+    if (queryParams.get("status") === "false") {
+      setStatusUrl("Tersewa");
+    } else {
+      setStatusUrl("Disewa");
+    }
+    setHargaUrl(queryParams.get("harga"));
+  }, [location]);
 
   return (
     <Container className="py-3 search-form">
@@ -36,9 +53,9 @@ function Searchform(props) {
                 <Form.Label>Nama Mobil</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Ketik nama / tipe mobil"
+                  placeholder={disabledForm ? "" : `Ketik nama / tipe mobil`}
                   className="search-input"
-                  defaultValue={withValueForm ? name : ""}
+                  defaultValue={withValueForm ? nameUrl : ""}
                   onChange={(evt) => setName(evt.target.value)}
                   disabled={disabledForm ? true : false}
                 ></Form.Control>
@@ -47,73 +64,52 @@ function Searchform(props) {
             <Col lg={3} sm={12}>
               <Form.Group>
                 <Form.Label>Kategori</Form.Label>
-                <ReactSelect
+                <Form.Select
                   className="search-input"
-                  placeholder="Kategori"
-                  isDisabled={disabledForm ? true : false}
-                  options={[
-                    {
-                      label: "2 - 4 orang",
-                      value: "small",
-                    },
-                    {
-                      label: "4 - 6 orang",
-                      value: "medium",
-                    },
-                    {
-                      label: "6 - 8 orang",
-                      value: "large",
-                    },
-                  ]}
-                  onChange={(selected) => setKategori(selected.value)}
-                />
+                  defaultValue={withValueForm ? kategoriUrl : ""}
+                  onChange={(e) => setKategori(e.target.value)}
+                  disabled={disabledForm ? true : false}
+                >
+                  <option value="">
+                    {disabledForm ? "" : `Masukkan Kapasitas Mobil`}
+                  </option>
+                  <option value="small">2 - 4 orang</option>
+                  <option value="medium">4 - 6 orang</option>
+                  <option value="large">6 - 8 orang</option>
+                </Form.Select>
               </Form.Group>
             </Col>
             <Col lg={3} sm={12}>
               <Form.Group>
                 <Form.Label>Harga</Form.Label>
-                <ReactSelect
+                <Form.Select
                   className="search-input"
-                  placeholder="Pilih Rentang Harga"
-                  isDisabled={disabledForm ? true : false}
-                  options={[
-                    {
-                      label: "< 400.000",
-                      value: "0-399999",
-                    },
-                    {
-                      label: "400.000 - 600.000",
-                      value: "400000-600000",
-                    },
-                    {
-                      label: "> 600.000",
-                      value: "600001-99999999999",
-                    },
-                  ]}
-                  onChange={(selected) => setHarga(selected.value)}
-                />
+                  defaultValue={withValueForm ? hargaUrl : ""}
+                  onChange={(e) => setHarga(e.target.value)}
+                  disabled={disabledForm ? true : false}
+                >
+                  <option value="">
+                    {disabledForm ? "" : `Masukkan Harga Sewa per Hari`}
+                  </option>
+                  <option value="0-399999">{`< 400.000`}</option>
+                  <option value="400000-600000">{`400.000 - 600.000`}</option>
+                  <option value="600001-99999999999">{`> 600.000`}</option>
+                </Form.Select>
               </Form.Group>
             </Col>
             <Col lg={3} sm={12}>
               <div className="d-flex align-items-end gap-3">
                 <Form.Group className="flex-fill">
                   <Form.Label>Status</Form.Label>
-                  <ReactSelect
-                    placeholder="Pilih Status"
+                  <Form.Select
                     className="search-input"
-                    isDisabled={disabledForm ? true : false}
-                    options={[
-                      {
-                        label: "Disewa",
-                        value: true,
-                      },
-                      {
-                        label: "Belum Disewa",
-                        value: false,
-                      },
-                    ]}
-                    onChange={(selected) => setStatus(selected.value)}
-                  />
+                    defaultValue={withValueForm ? statusUrl : ""}
+                    onChange={(e) => setStatus(e.target.value)}
+                    disabled={disabledForm ? true : false}
+                  >
+                    <option value={true}>{disabledForm ? "" : `Disewa`}</option>
+                    <option value={false}>Tersewa</option>
+                  </Form.Select>
                 </Form.Group>
                 {withButtonSearchCar ? (
                   disabledForm ? (

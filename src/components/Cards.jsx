@@ -8,6 +8,8 @@ function Cards() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState();
+  const [minPrice, setMinPrice] = useState();
+  const [maxPrice, setMaxPrice] = useState();
   const numberBeRp = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -28,14 +30,8 @@ function Cards() {
               searchParams.get("status") === "undefined"
                 ? ""
                 : searchParams.get("status"),
-            minPrice:
-              searchParams.get("harga") === "undefined"
-                ? ""
-                : searchParams.get("harga"),
-            maxPrice:
-              searchParams.get("harga") === "undefined"
-                ? ""
-                : searchParams.get("harga"),
+            minPrice: searchParams.get("harga") === "undefined" ? "" : minPrice,
+            maxPrice: searchParams.get("harga") === "undefined" ? "" : maxPrice,
           },
         }
       );
@@ -51,6 +47,19 @@ function Cards() {
   };
 
   useEffect(() => {
+    if (searchParams.get("harga") === "0-399999") {
+      setMinPrice(0);
+      setMaxPrice(399999);
+    } else if (searchParams.get("harga") === "400000-600000") {
+      setMinPrice(400000);
+      setMaxPrice(600000);
+    } else if (searchParams.get("harga") === "600001-99999999999") {
+      setMinPrice(600001);
+      setMaxPrice(99999999999);
+    } else {
+      setMinPrice(0);
+      setMaxPrice(0);
+    }
     fetchCarsData();
   }, [searchParams]);
 
